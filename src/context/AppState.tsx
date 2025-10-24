@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useMemo, useReducer, useEffect } from "react";
-import type { AppStateShape, EmailItem, EmailClassification } from "@/types";
+import type { AppStateShape, EmailItem, EmailClassification, AgentConfig } from "@/types";
 import { initialEmails } from "@/data/emails";
 
 // Actions
@@ -12,7 +12,8 @@ type Action =
   | { type: "filter"; classification: AppStateShape["filters"]["classification"]; status: AppStateShape["filters"]["status"] }
   | { type: "addEmail"; email: EmailItem }
   | { type: "notify"; message: string; level?: "success" | "info" | "warning" | "error" }
-  | { type: "updateMetrics"; delta: Partial<AppStateShape["metrics"]> };
+  | { type: "updateMetrics"; delta: Partial<AppStateShape["metrics"]> }
+  | { type: "setAgents"; agents: AgentConfig };
 
 const initialState: AppStateShape = {
   emails: initialEmails,
@@ -54,6 +55,8 @@ function reducer(state: AppStateShape, action: Action): AppStateShape {
     }
     case "updateMetrics":
       return { ...state, metrics: { ...state.metrics, ...action.delta } };
+    case "setAgents":
+      return { ...state, agents: action.agents };
     default:
       return state;
   }

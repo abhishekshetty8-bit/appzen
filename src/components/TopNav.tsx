@@ -16,7 +16,13 @@ export default function TopNav() {
   );
   return (
     <div className="flex items-center justify-between px-4 h-14 border-b bg-white">
-      <div className="flex gap-2">{link("/inbox", "Inbox")}{link("/dashboard", "Dashboard")}</div>
+      <div className="flex gap-2">
+        {link("/inbox", "Inbox")}
+        {link("/dashboard", "Dashboard")}
+        {link("/statements", "Statements")}
+        {link("/settings", "Settings")}
+        {link("/tracker", "Tracker")}
+      </div>
       <div className="text-sm text-gray-500">AppZen Inbox Demo</div>
     </div>
   );
