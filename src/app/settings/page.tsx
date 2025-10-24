@@ -1,6 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useAppState } from "@/context/AppState";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 export default function SettingsPage() {
   const { state, dispatch } = useAppState();
@@ -24,12 +28,12 @@ export default function SettingsPage() {
     <div className="p-6 space-y-6">
       <div className="rounded border bg-white p-4">
         <div className="text-lg font-semibold mb-2">Supplier Inquiry Agent</div>
-        <div className="flex items-center gap-2 mb-3 text-sm">
-          <input id="inq-enabled" type="checkbox" checked={inquiryEnabled} onChange={(e) => setInquiryEnabled(e.target.checked)} />
-          <label htmlFor="inq-enabled">Enabled</label>
+        <div className="flex items-center gap-3 mb-3 text-sm">
+          <Switch id="inq-enabled" checked={inquiryEnabled} onCheckedChange={setInquiryEnabled} />
+          <Label htmlFor="inq-enabled">Enabled</Label>
         </div>
         <div className="text-sm mb-1">Auto-Send Threshold: <span className="font-medium">{confidence}%</span></div>
-        <input type="range" min={50} max={100} value={confidence} onChange={(e) => setConfidence(parseInt(e.target.value, 10))} className="w-full" />
+        <Slider min={50} max={100} step={1} defaultValue={[confidence]} onValueChange={(v) => setConfidence(v[0])} />
         <div className="mt-3 text-xs text-gray-600">Agent will auto-send responses when confidence ≥ threshold.</div>
       </div>
 
@@ -39,7 +43,7 @@ export default function SettingsPage() {
       </div>
 
       <div className="flex gap-2">
-        <button onClick={save} className="px-3 py-1.5 rounded bg-indigo-600 text-white">Save Changes</button>
+        <Button onClick={save}>Save Changes</Button>
       </div>
     </div>
   );
@@ -48,9 +52,9 @@ export default function SettingsPage() {
 function ToggleCard({ label, enabled, onChange }: { label: string; enabled: boolean; onChange: (v: boolean) => void }) {
   return (
     <div className="rounded border bg-white p-4">
-      <div className="flex items-center gap-2">
-        <input id={label} type="checkbox" checked={enabled} onChange={(e) => onChange(e.target.checked)} />
-        <label htmlFor={label} className="text-sm font-medium">{label}</label>
+      <div className="flex items-center gap-3">
+        <Switch id={label} checked={enabled} onCheckedChange={onChange} />
+        <Label htmlFor={label} className="text-sm font-medium">{label}</Label>
       </div>
     </div>
   );

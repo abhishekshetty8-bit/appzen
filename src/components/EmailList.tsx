@@ -1,5 +1,6 @@
 "use client";
 import { useAppState } from "@/context/AppState";
+import { Badge } from "@/components/ui/badge";
 
 export default function EmailList() {
   const { state, dispatch } = useAppState();
@@ -43,8 +44,8 @@ export default function EmailList() {
         {filtered.map((email) => (
           <button
             key={email.id}
-            className={`w-full text-left p-3 hover:bg-gray-100 transition ${
-              state.selectedEmailId === email.id ? "bg-indigo-50" : ""
+            className={`w-full text-left p-3 hover:bg-gray-50 transition ${
+              state.selectedEmailId === email.id ? "bg-indigo-50/70" : ""
             }`}
             onClick={() => dispatch({ type: "selectEmail", id: email.id })}
           >
@@ -52,9 +53,10 @@ export default function EmailList() {
               <div className="font-medium text-gray-800">{email.subject}</div>
               <div className="text-xs text-gray-500">{email.timestamp}</div>
             </div>
-            <div className="text-xs text-gray-600">
-              {email.from} • <span className="inline-block px-1.5 py-0.5 rounded bg-gray-200">{email.classification}</span>
-              <span className="ml-2">Conf: {(email.confidence * 100).toFixed(0)}%</span>
+            <div className="text-xs text-gray-600 flex items-center gap-2">
+              <span className="truncate">{email.from}</span>
+              <Badge variant="secondary">{email.classification}</Badge>
+              <span className="text-gray-500">Conf: {(email.confidence * 100).toFixed(0)}%</span>
             </div>
             {email.status === "unread" && <div className="mt-1 text-xs text-indigo-700">Unread</div>}
           </button>

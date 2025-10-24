@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useAppState } from "@/context/AppState";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function AgentPanel() {
   const { state, dispatch } = useAppState();
@@ -44,13 +46,9 @@ export default function AgentPanel() {
         {!canRespond && <div className="text-gray-500">Agent response not available for this classification.</div>}
         {canRespond && (
           <>
-            <button
-              onClick={handleAgentRespond}
-              className="px-3 py-1.5 rounded bg-indigo-600 text-white disabled:opacity-50"
-              disabled={loading !== null}
-            >
+            <Button onClick={handleAgentRespond} disabled={loading !== null}>
               {loading === "analyzing" ? "Analyzing..." : "Let Agent Respond"}
-            </button>
+            </Button>
             {loading === "analyzing" && (
               <div className="space-y-2">
                 <div className="h-3 bg-gray-200 rounded animate-pulse" />
@@ -71,12 +69,12 @@ export default function AgentPanel() {
             {draft && (
               <div>
                 <div className="font-medium mb-1">Draft response</div>
-                <textarea className="w-full h-40 border rounded p-2 text-sm" value={draft} onChange={(e) => setDraft(e.target.value)} />
+                <Textarea className="h-40" value={draft} onChange={(e) => setDraft(e.target.value)} />
                 <div className="flex gap-2 mt-2">
-                  <button onClick={send} className="px-3 py-1.5 rounded bg-green-600 text-white disabled:opacity-50" disabled={loading === "sending"}>
+                  <Button onClick={send} disabled={loading === "sending"}>
                     {loading === "sending" ? "Sending..." : "Approve & Send"}
-                  </button>
-                  <button onClick={() => setDraft("")} className="px-3 py-1.5 rounded border">Reject</button>
+                  </Button>
+                  <Button variant="outline" onClick={() => setDraft("")}>Reject</Button>
                 </div>
                 {loading === "sending" && (
                   <div className="mt-2 h-2 bg-green-200 rounded animate-pulse" />
