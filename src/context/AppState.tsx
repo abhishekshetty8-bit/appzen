@@ -13,7 +13,8 @@ type Action =
   | { type: "addEmail"; email: EmailItem }
   | { type: "notify"; message: string; level?: "success" | "info" | "warning" | "error" }
   | { type: "updateMetrics"; delta: Partial<AppStateShape["metrics"]> }
-  | { type: "setAgents"; agents: AgentConfig };
+  | { type: "setAgents"; agents: AgentConfig }
+  | { type: "clearNotifications" };
 
 const initialState: AppStateShape = {
   emails: initialEmails,
@@ -57,6 +58,8 @@ function reducer(state: AppStateShape, action: Action): AppStateShape {
       return { ...state, metrics: { ...state.metrics, ...action.delta } };
     case "setAgents":
       return { ...state, agents: action.agents };
+    case "clearNotifications":
+      return { ...state, notifications: [] };
     default:
       return state;
   }

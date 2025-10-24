@@ -51,6 +51,13 @@ export default function AgentPanel() {
             >
               {loading === "analyzing" ? "Analyzing..." : "Let Agent Respond"}
             </button>
+            {loading === "analyzing" && (
+              <div className="space-y-2">
+                <div className="h-3 bg-gray-200 rounded animate-pulse" />
+                <div className="h-3 bg-gray-200 rounded animate-pulse w-5/6" />
+                <div className="h-3 bg-gray-200 rounded animate-pulse w-4/6" />
+              </div>
+            )}
             {!!analysis.length && (
               <div>
                 <div className="font-medium mb-1">Agent analysis</div>
@@ -71,6 +78,9 @@ export default function AgentPanel() {
                   </button>
                   <button onClick={() => setDraft("")} className="px-3 py-1.5 rounded border">Reject</button>
                 </div>
+                {loading === "sending" && (
+                  <div className="mt-2 h-2 bg-green-200 rounded animate-pulse" />
+                )}
               </div>
             )}
           </>

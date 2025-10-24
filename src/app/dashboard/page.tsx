@@ -97,6 +97,15 @@ export default function DashboardPage() {
           </ResponsiveContainer>
         </div>
       </div>
+      <div className="rounded border bg-white p-4">
+        <div className="text-sm font-medium mb-2">Insights</div>
+        <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+          <li>🎯 You're saving 43.2 hours/month - equivalent to 1 full-time employee</li>
+          <li>💰 $1,250 in missing credits discovered in Sept statement reconciliation</li>
+          <li>📈 Auto-resolution rate improved 15% this month through agent learning</li>
+          <li>⚠️ Supplier 'Tech Corp' has 3x more inquiries than average - consider investigation</li>
+        </ul>
+      </div>
     </div>
   );
 }
